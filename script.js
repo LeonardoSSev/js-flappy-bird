@@ -82,6 +82,24 @@ const flappyBird = {
   }
 }
 
+const telaDeInicio = {
+  spriteX: 134,
+  spriteY: 0,
+  largura: 174,
+  altura: 152,
+  x: (canvas.width / 2) - 174 / 2,
+  y: 50,
+  desenha() {
+    contexto.drawImage(
+      sprites,
+      telaDeInicio.spriteX, telaDeInicio.spriteY, // Sprite X, Sprite Y
+      telaDeInicio.largura, telaDeInicio.altura, // Tamanho do recorte na sprite
+      telaDeInicio.x, telaDeInicio.y,
+      telaDeInicio.largura, telaDeInicio.altura,
+    );
+  }
+}
+
 function loop() {
   planoDeFundo.desenha();
   chao.desenha();
