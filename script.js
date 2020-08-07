@@ -117,7 +117,7 @@ const telas = {
       telaDeInicio.desenha();
     },
     atualiza() {
-      telaAtiva = telas.JOGO;
+      // TODO
     }
   },
   JOGO: {
@@ -125,25 +125,25 @@ const telas = {
       planoDeFundo.desenha();
       chao.desenha();
       flappyBird.desenha();
-      flappyBird.atualiza();
     },
     atualiza() {
-      // TODO
+      flappyBird.atualiza();
     }
   }
 }
 
 function loop() {
   telaAtiva.desenha();
+  telaAtiva.atualiza();
 
   requestAnimationFrame(loop);
 }
 
 canvas.addEventListener('click', function () {
   if (telaAtiva === telas.INICIO) {
-    telaAtiva.atualiza();
+    telaAtiva = telas.JOGO;
   }
-})
+});
 
 telaAtiva = telas.INICIO;
 loop();
