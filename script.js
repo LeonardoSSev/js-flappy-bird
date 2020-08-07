@@ -1,7 +1,7 @@
 console.log('[DevSoutinho] Flappy Bird');
 
 const sprites = new Image();
-sprites.src = './assets/sprites.png';
+sprites.src = './assets/imgs/sprites.png';
 
 const canvas = document.querySelector('canvas');
 const contexto = canvas.getContext('2d');
