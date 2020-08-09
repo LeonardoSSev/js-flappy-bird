@@ -73,9 +73,15 @@ const flappyBird = {
   y: 50,
   gravidade: 0.25,
   velocidade: 0,
+  pulo: 4.6,
   atualiza() {
+    if (fezColisao(flappyBird, chao)) {
+      mudaTela(telas.INICIO);
+      return;
+    }
+
     flappyBird.velocidade = flappyBird.velocidade + flappyBird.gravidade;
-    flappyBird.y = flappyBird.y + 1;
+    flappyBird.y = flappyBird.y + flappyBird.velocidade;
   },
   desenha() {
     contexto.drawImage(
@@ -85,6 +91,9 @@ const flappyBird = {
       flappyBird.x, flappyBird.y,
       flappyBird.largura, flappyBird.altura,
     );
+  },
+  pula() {
+    flappyBird.velocidade = flappyBird.velocidade - flappyBird.pulo;
   }
 }
 
@@ -118,6 +127,9 @@ const telas = {
     },
     atualiza() {
       // TODO
+    },
+    click() {
+      mudaTela(telas.JOGO);
     }
   },
   JOGO: {
@@ -128,8 +140,19 @@ const telas = {
     },
     atualiza() {
       flappyBird.atualiza();
+    },
+    click() {
+      flappyBird.pula();
     }
   }
+}
+
+function fezColisao(flappyBird, chao) {
+  if (flappyBird.y + flappyBird.altura >= chao.y) {
+    return true;
+  }
+
+  return false;
 }
 
 function loop() {
@@ -139,9 +162,17 @@ function loop() {
   requestAnimationFrame(loop);
 }
 
+function mudaTela(novaTela) {
+  telaAtiva = novaTela;
+
+  if (telaAtiva.inicializa) {
+    telaAtiva.inicializa();
+  }
+}
+
 canvas.addEventListener('click', function () {
-  if (telaAtiva === telas.INICIO) {
-    telaAtiva = telas.JOGO;
+  if (telaAtiva.click) {
+    telaAtiva.click();
   }
 });
 
