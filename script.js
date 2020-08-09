@@ -3,6 +3,9 @@ console.log('[DevSoutinho] Flappy Bird');
 const sprites = new Image();
 sprites.src = './assets/imgs/sprites.png';
 
+const audio_HIT = new Audio();
+audio_HIT.src = './assets/sounds/hit.wav';
+
 const canvas = document.querySelector('canvas');
 const contexto = canvas.getContext('2d');
 
@@ -77,6 +80,8 @@ function criaFlappyBird() {
     pulo: 4.6,
     atualiza() {
       if (fezColisao(flappyBird, chao)) {
+        audio_HIT.play();
+
         mudaTela(telas.INICIO);
         return;
       }
